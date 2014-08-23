@@ -1,0 +1,39 @@
+<form method="post" action="">
+    <!-- Liste déroulante -->
+    <label for="valeur">Votre valeur : </label> <br />
+    <select name="nom_donne_au_select">
+      <option value="defaut">valeur_par_defaut</option>
+          <option value="valeur">valeur1</option>
+          <option value="valeur">valeur2</option>
+          <option value="valeur">valeur3/option>
+          <option value="valeur">valeur4</option>
+          <option value="valeur">valeur5</option>
+          <option value="valeur">valeur6</option>
+    </select><br />
+    
+    <!-- Champ de texte -->
+    <label for="valeur">Votre valeur : </label><br />
+    <input type="text" name="valeur" id="valeur" required/><br />
+    
+    <!-- Champ de texte -->
+    <label for="valeur">Votre valeur : </label><br />
+    <input type="text" name="valeur" id="valeur" required/><br />
+    
+    <!-- Champ de texte -->
+    <label for="valeur">Votre valeur : </label><br />
+    <input type="text" name="valeur" id="valeur" required/><br />
+    
+    <!-- Champ de texte -->
+    <label for="valeur">Votre valeur :: </label><br />
+    <input type="text" name="valeur" id="valeur" required/><br />
+    
+    <!-- Zonne de texte -->
+    <label for="valeur">Votre valeur : </label><br />
+    <textarea name="valeur" required></textarea><br /> 
+    
+    <!-- Permet d'envoyer l'action du form -->
+    <input type="submit" name="valeur" value="valeur"/>
+    
+    <!-- Remet à zéro tous les champs du formulaire -->
+    <input type="reset" name="valeur" value="valeurr"/> 
+  </form>

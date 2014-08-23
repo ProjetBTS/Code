@@ -1,0 +1,18 @@
+<?php 
+$resultatRecherche = $connexion->query('SELECT * FROM utilisateurs WHERE login ="' .$_POST['login']. '" AND mdp="' .$_POST['mdp']. '"');
+
+if($ligne = $resultatRecherche->fetch())
+ {
+    session_start();
+    $_SESSION['id_user']=$ligne['id_user'];
+    $_SESSION['nom']=$ligne['nom'];
+    header('location: accueil.php');
+ }
+ 
+ else
+ {
+     header('location: connexion.php?message=true');
+ }
+
+ $resultat->closeCursor();
+?>

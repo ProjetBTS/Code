@@ -1,0 +1,22 @@
+<table>
+            <tr>
+                <th>Nom</th>
+                <th>Adresse</th>
+                <th>Téléphone</th>
+                <th>E-mail</th>
+            </tr>            
+            <?php
+            $resultats = $connexion->query ('select * from entreprise');
+                while ($ligne = $resultats->fetch())
+                {
+            ?>
+            <tr>
+                <td><?php echo $ligne['NOM']; ?></td>
+                <td><?php echo $ligne['ADRESSE']; ?></td>
+                <td><?php echo $ligne['TELEPHONE']; ?></td>
+                <td><?php echo $ligne['MAIL']; ?></td>
+            </tr>
+            <?php
+                }
+            ?>
+        </table>

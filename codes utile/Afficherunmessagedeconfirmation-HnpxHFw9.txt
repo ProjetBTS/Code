@@ -1,0 +1,11 @@
+<?php
+//Vérification que la variable existe ($_GET['parametre_passé_en_url_retourné'])
+if (isset($_GET['parametre_passé_en_url_retourné']) && !empty($_GET['parametre_passé_en_url_retourné']))
+{
+  // Vérification si l'actualité a bien été enregistrer dans la base de données
+  if($_GET['parametre_passé_en_url_retourné'] == 1)
+  {?>
+    <h3><?php echo 'L\'actualit&eacute; a bien &eacute;t&eacute; enregistr&eacute; !';?></h3> 
+<?php
+  }
+}

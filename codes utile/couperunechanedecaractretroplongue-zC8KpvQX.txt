@@ -1,0 +1,13 @@
+<?php  
+$chaine = $donnees['chaine_entrée_dans_le_formulaire']; // On stock la chaine entrée dans le formulaire qu'on veut tronquer dans une variable
+$longueur_max = 500; //nombre de caractère autoriser
+                
+// On test si la chaine est plus longue que la longueur max
+if(strlen($chaine) > $longueur_max)
+{
+	$chaine = substr($chaine, 0, $longueur_max);
+        $chaine = substr($chaine, 0,strrpos($chaine, " "))."...";	
+}                             
+// On affiche la chaine
+ echo $chaine;
+?>

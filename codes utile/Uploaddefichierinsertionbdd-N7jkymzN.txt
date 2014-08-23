@@ -1,0 +1,82 @@
+if (!empty($_POST['envoyer']))
+{
+        // on liste les différentes extension possible ( y compris pour IE )
+        $ListeExtension = array('jpg' => 'image/jpeg', 'jpeg'=>'image/jpeg', 'png' => 'image/png', 'gif' => 'image/gif');
+        $ListeExtensionIE = array('jpg' => 'image/pjpeg', 'jpeg'=>'image/pjpeg');
+        
+        // si titre, image et editor1 ne sont pas vide 
+        if (!empty($_POST['titre']) && (!empty($_FILES['image'])) && (!empty($_POST['editor1'])))
+        {
+                // On défini des variable pour nos saisie
+                $titre = $_POST['titre'];
+                $mise_en_ligne = $_POST['en_ligne'];
+                $description = $_POST['description'];
+                $contenu = $_POST['editor1'];
+ 
+                if ($_FILES['image']['error'] <= 0)
+                {
+                        if ($_FILES['image']['size'] <= 2097152)
+                        {
+                            // on recupère l'image dans la variable Image
+                            $Image = $_FILES['image']['name'];
+ 
+                            // On regarde sépare le nom de l'image pour ne garder que l'extension
+                            $ExtensionPresumee = explode('.', $Image);
+                            $ExtensionPresumee = strtolower($ExtensionPresumee[count($ExtensionPresumee)-1]);
+                            if ($ExtensionPresumee == 'jpg' || $ExtensionPresumee == 'jpeg' || $ExtensionPresumee == 'pjpg' || $ExtensionPresumee == 'pjpeg' || $ExtensionPresumee == 'gif' || $ExtensionPresumee == 'png')
+                            {
+                              // On met dans une variable la taille de l'image d'origine
+                              $Image_taille = getimagesize($_FILES['image']['tmp_name']);
+                              
+                              // On défini la taille de la nouvelle image 
+                              if($Image_taille['mime'] == $ListeExtension[$ExtensionPresumee]  || $Image_taille['mime'] == $ListeExtensionIE[$ExtensionPresumee])
+                              {
+                                              // On crée l'image 
+                                              $ImageChoisie = imagecreatefromjpeg($_FILES['image']['tmp_name']);
+                                              $TailleImageChoisie = getimagesize($_FILES['image']['tmp_name']);
+                                              $NouvelleLargeur = 420; //Largeur choisie à 350 px mais modifiable
+ 
+                                              // On défini la hauteur de l'image
+                                              $NouvelleHauteur = ( ($TailleImageChoisie[1] * (($NouvelleLargeur)/$TailleImageChoisie[0])) );
+ 
+                                              // Définition des dimensions de la nouvelle image
+                                              $NouvelleImage = imagecreatetruecolor($NouvelleLargeur , $NouvelleHauteur) or die ("Erreur");
+ 
+                                              imagecopyresampled($NouvelleImage , $ImageChoisie  , 0,0, 0,0, $NouvelleLargeur, $NouvelleHauteur, $TailleImageChoisie[0],$TailleImageChoisie[1]);
+                                              imagedestroy($ImageChoisie);
+                                              $NomImageChoisie = explode('.', $Image);      
+                                        }
+                                        else
+                                        {
+                                                echo 'Le type MIME de l\'image n\'est pas bon';
+                                        }
+                                }
+                                else
+                                {
+                                        echo 'L\'extension choisie pour l\'image est incorrecte';
+                                }
+                        }
+                        else
+                        {
+                                echo 'L\'image est trop lourde';
+                        }
+                }
+                else
+                {
+                        echo 'Erreur lors de l\'upload image';
+                }
+        // On insert dans la base de données les champs rempli dont l'image
+        $bdd->exec('INSERT INTO actualites VALUES("", "'.$titre.'", "'.$Image.'", "'.$mise_en_ligne.'", "'.$contenu.'", "'.$description.'", now()) ') ;
+        if ($bdd)
+        {
+                echo 'La news a bien été insérée';
+        }
+        }
+        else
+        {
+                echo 'Au moins un des champs est vide';?>
+        <?php
+        }
+        
+        
+}

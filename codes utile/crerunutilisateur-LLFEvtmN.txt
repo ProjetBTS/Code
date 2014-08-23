@@ -1,0 +1,29 @@
+<?php
+//Connexion à la base de données
+
+//Récupération des information dans la table eleves pour le login passé dans le formulaire
+$resultatRecherche = $connexion->query('SELECT * FROM eleves WHERE PSEUDO ="' .$_POST['log']. '"');
+
+if($ligne = $resultatRecherche->fetch()) //Si un eleves existe déjà avec ce login
+{
+     header('location: ../creer_utilisateur.php?message_login=true'); //Redirection vers la page de création de compte avec un message d'erreur
+}
+else //Sinon
+{
+    if ($_POST['mdp'] == $_POST['confirmation']) //Si les deux mots de passe sont identiques
+    {
+        //Récupération de l'identifiant maximum dans la table client
+        $resultatidMax = $connexion->query('SELECT MAX(ID_ELEVES) as idMax FROM eleves');
+        $idMax = $resultatidMax->fetch();
+        
+        //Insersion dans la base de données
+        $connexion->exec('INSERT INTO eleves VALUES(' .($idMax['idMax']+1) . ', "' .$_POST['log']. '", "' .$_POST['mdp']. '", "' .$_POST['nom_eleve']. '", "' .$_POST['prenom']. '", "' .$_POST['classe']. '")');
+        header('location: ../creer_utilisateur.php'); //Redirection vers la page de création de l'utilisateur
+    }
+    else //Sinon
+    {
+        header('location: ../creer_utilisateur.php?message_mdp=true'); //Redirection vers la page de création de compte avec un message d'erreur
+    }
+}
+$resultatRecherche->closeCursor();
+?>

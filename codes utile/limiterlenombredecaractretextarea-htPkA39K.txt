@@ -1,0 +1,9 @@
+<script type="text/javascript">
+      function textLimit(field, maxlen) {
+       if (field.value.length > maxlen) {
+          field.value = field.value.substring(0, maxlen);
+          alert('Votre texte est trop long!');
+       }
+      }
+	// A placer dans le textarea onkeyup="textLimit(this, 500);"
+</script>

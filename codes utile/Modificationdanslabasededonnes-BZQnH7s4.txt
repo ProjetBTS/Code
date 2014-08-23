@@ -1,0 +1,12 @@
+<?php
+  // Connection à la base de données
+  include '../connect.php';
+  // On effectue la mise a jour 
+  $mise_a_jour = "update actualites set en_ligne = '" .$_POST['en_ligne']. "' where id_actualites='" .$_GET['id']. "'";
+
+  // On insert la mise à jour dans la base de données
+  $bdd->exec($mise_a_jour);
+  
+  // On revoi a la liste d'actu avec un message de confirmation dans l'url
+  header('location: liste_actu.php?confirmation=1'); 
+?>

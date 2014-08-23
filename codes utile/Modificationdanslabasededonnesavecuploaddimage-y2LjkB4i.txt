@@ -1,0 +1,86 @@
+<?php
+  // Connection à la base de données
+  include '../connect.php';
+  
+  //si il n'y a pas d'image on execute la mise a jour sans l'image
+  if($_FILES['images'] = NULL)
+  {
+    // On effectue la mise a jour 
+    $mise_a_jour = "update actualites set titre = '".$_POST['titre']."', en_ligne = '" .$_POST['en_ligne']. "', zone_contenue = '".$_POST['editor1']."', description = '".$_POST['description']."' where id_actualites='" .$_GET['id_actu']. "'";    
+    // On insert la mise à jour dans la base de données
+    $bdd->exec($mise_a_jour);
+  }
+  // sinon on redimmentionne l'image et on met a jour la base de données
+  else
+  {
+    if (!empty($_POST['envoyer']))
+    {
+        // on liste les différentes extension possible ( y compris pour IE )
+        $ListeExtension = array('jpg' => 'image/jpeg', 'jpeg'=>'image/jpeg', 'png' => 'image/png', 'gif' => 'image/gif');
+        $ListeExtensionIE = array('jpg' => 'image/pjpeg', 'jpeg'=>'image/pjpeg');
+        
+        // si titre, image et editor1 ne sont pas vide 
+        if (!empty($_POST['titre']) && (!empty($_FILES['image'])) && (!empty($_POST['editor1'])))
+        {
+                // On défini des variable pour nos saisie
+                $titre = $_POST['titre'];
+                $mise_en_ligne = $_POST['en_ligne'];
+                $description = $_POST['description'];
+                $contenu = $_POST['editor1'];
+ 
+                if ($_FILES['image']['error'] <= 0)
+                {
+                        if ($_FILES['image']['size'] <= 2097152)
+                        {
+                            // on recupère l'image dans la variable Image
+                            $Image = $_FILES['image']['name'];
+ 
+                            // On regarde sépare le nom de l'image pour ne garder que l'extension
+                            $ExtensionPresumee = explode('.', $Image);
+                            $ExtensionPresumee = strtolower($ExtensionPresumee[count($ExtensionPresumee)-1]);
+                            if ($ExtensionPresumee == 'jpg' || $ExtensionPresumee == 'jpeg' || $ExtensionPresumee == 'pjpg' || $ExtensionPresumee == 'pjpeg' || $ExtensionPresumee == 'gif' || $ExtensionPresumee == 'png')
+                            {
+                              // On met dans une variable la taille de l'image d'origine
+                              $Image_taille = getimagesize($_FILES['image']['tmp_name']);
+                              
+                              // On défini la taille de la nouvelle image 
+                              if($Image_taille['mime'] == $ListeExtension[$ExtensionPresumee]  || $Image_taille['mime'] == $ListeExtensionIE[$ExtensionPresumee])
+                              {
+                                              // On crée l'image 
+                                              $ImageChoisie = imagecreatefromjpeg($_FILES['image']['tmp_name']);
+                                              $TailleImageChoisie = getimagesize($_FILES['image']['tmp_name']);
+                                              $NouvelleLargeur = 420; //Largeur choisie à 350 px mais modifiable
+ 
+                                              // On défini la hauteur de l'image
+                                              $NouvelleHauteur = ( ($TailleImageChoisie[1] * (($NouvelleLargeur)/$TailleImageChoisie[0])) );
+ 
+                                              // Définition des dimensions de la nouvelle image
+                                              $NouvelleImage = imagecreatetruecolor($NouvelleLargeur , $NouvelleHauteur) or die ("Erreur");
+ 
+                                              imagecopyresampled($NouvelleImage , $ImageChoisie  , 0,0, 0,0, $NouvelleLargeur, $NouvelleHauteur, $TailleImageChoisie[0],$TailleImageChoisie[1]);
+                                              imagedestroy($ImageChoisie);
+                                              $NomImageChoisie = explode('.', $Image);
+                                              $NomImageExploitable = $Image;
+                                              
+                                              imagejpeg($NouvelleImage , '../images/actualites/'.$NomImageExploitable, 100);
+                                              $LienImageNews = '../images/actualites/'.$NomImageExploitable;      
+                                        }
+                                }
+                                
+                        }
+                        
+                }
+                
+          // On insert dans la base de données les champs rempli dont l'image
+          $mise_a_jour_image = "update actualites set titre = '".$titre."', images='".$Image."', en_ligne = '" .$mise_en_ligne. "', zone_contenue = '".$contenu."', description = '".$description."' where id_actualites='" .$_GET['id_actu']. "'";
+          $bdd->exec($mise_a_jour_image);
+          
+        }
+          
+    }
+
+  }
+  
+  // On revoi a la liste d'actu avec un message de confirmation dans l'url
+  header('location: liste_actu.php?confirmation=1'); 
+?>

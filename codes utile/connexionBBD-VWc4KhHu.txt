@@ -1,0 +1,16 @@
+<?php
+$Hostname = "127.0.0.1";
+$NameBDD = "nom base de données";
+$User = "nom user";
+$Password = "Pmot de passe user";
+
+try
+{
+    $connexion = new PDO("mysql:host=$Hostname;dbname=$NameBDD", $User, $Password);
+}
+catch(Exception $e)
+{
+    die('Erreur : '.$e->getMessage());
+    
+}
+?>

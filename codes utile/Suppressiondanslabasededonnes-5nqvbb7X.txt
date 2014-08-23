@@ -1,0 +1,13 @@
+<?php
+  //connection à la base de données
+  include '../connect.php';
+  
+  // on supprime l'actualité compléte de l'id passer en paramètre dans l'url 
+  $suppr_actu = "DELETE FROM actualites WHERE id_actualites='".$_GET['id_suppr']."'";
+  
+  // On execute la requête
+  $bdd->exec($suppr_actu);
+  
+  // On renvoi vers la liste d'actu avec un passer en paramètre quand la suppression a réussi.
+  header('location: liste_actu.php?suppression=1');
+?>
