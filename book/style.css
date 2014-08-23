@@ -1,0 +1,121 @@
+@CHARSET "ISO-8859-1";
+
+html{
+    font-family: 'arial';
+    background: url(images/bg.png) no-repeat center fixed;
+    -webkit-background-size: cover; /* pour Chrome et Safari */
+    -moz-background-size: cover; /* pour Firefox */
+    -o-background-size: cover; /* pour Opera */
+    background-size: cover; /* version standardisée */
+}
+
+@font-face {
+    font-family: 'lobster';
+    src: url('font/lobster_1.4-webfont.eot');
+    src: url('font/lobster_1.4-webfont.eot?#iefix') format('embedded-opentype'),
+         url('font/lobster_1.4-webfont.woff') format('woff'),
+         url('font/lobster_1.4-webfont.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+#logo{
+    width: 200px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.logo{
+    width: 200px;
+}
+
+#nav-bar{
+    margin: 0 auto;
+    width: 1000px;
+    height: 30px;
+    text-decoration: none;
+    text-align: center;
+    font-family: 'lobster';
+    margin-top: 25px;
+    margin-bottom: 20px;
+}
+
+ul li {
+    display: inline;
+    text-align: center;
+    margin-right: 50px;
+    font-size: 20px;
+}
+
+ul li a{
+    text-decoration: none;  
+    color: black;
+}
+
+ul li a:hover{
+    color: #acc90b;
+}
+
+/*fin menu*/
+
+/*debut corp*/
+
+#content{
+  margin:0 auto;
+  width:1016px;
+  height: auto;
+  background-color: rgba(255,255,255,0.7);
+  border-radius: 5px;
+  padding: 10px;
+}
+
+#content h1{
+    font-family: 'lobster';
+    text-align: center;
+}
+
+#content h2{
+    font-size: 20px;
+}
+
+#news{
+    width: 250px;
+    height: 350px;
+    padding: 15px;
+    background-color: rgba(255, 255, 255, 0.7);
+    border-radius: 7px;
+}
+
+#tuile{
+    text-align: center;
+    color: black;
+    background-color: rgba(249,179,20,1);
+    width: 150px;
+    height: 150px;
+    border-radius: 3px;
+    padding:15px;
+    transition: background-color 0.5s;
+}
+
+#tuile:hover{
+    background-color: rgba(240,134,3,1);
+}
+
+.aligntuile{
+    display: inline-block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#tuile:hover{
+    color: black;
+}
+
+footer{
+  text-align:center;
+  width:100%;
+}
+
+.footer{
+    margin-top: 0px;
+}
