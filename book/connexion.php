@@ -13,7 +13,7 @@
         </header>
         
         <div id="content">
-             <form method="post" action="authentification.php">  
+             <form method="post" action="include/authentification.php">  
                 <fieldset>
                         <legend>Identification</legend>
                         <label for="login" class="login">Login : </label>

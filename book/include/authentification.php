@@ -11,12 +11,12 @@ if($ligne = $resultatRecherche->fetch())
     $_SESSION['prenom']=$ligne['prenom'];
     $_SESSION['login']=$ligne['login'];
     $_SESSION['mdp']=$ligne['mdp'];
-    header('location: accueil.php');
+    header('location: ../accueil.php');
  }
  
  else
  {
-     header('location: connexion.php');
+     header('location: ../connexion.php');
  }
 
  $resultat->closeCursor();
