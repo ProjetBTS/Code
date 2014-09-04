@@ -10,8 +10,10 @@
             <a href="index.php"><img class="logo" src="images/logo.png"/></a>
         </div>
         
-        <?php include 'menu.php'; ?>
+        <?php include 'include/menu.php'; ?>
         
+<?php include 'include/footer.php'; ?>
+
         
     </body>
 </html>

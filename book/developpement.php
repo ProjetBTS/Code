@@ -10,7 +10,7 @@
             <a href="index.php"><img class="logo" src="images/logo.png"/></a>
         </div>
         
-        <?php include 'menu.php'; ?>
+        <?php include 'include/menu.php'; ?>
         
         <div id="content">
             <h1>Projet</h1>
@@ -21,5 +21,8 @@
             
             <h2>Professionnel</h2>
         </div>
+        
+<?php include 'include/footer.php'; ?>
+
     </body>
 </html>
