@@ -20,10 +20,15 @@ else
             <div id="logo">
                 <a href="index.php"><img class="logo" src="images/logo.png"/></a>
             </div>
+            
+            <div id="deconexion">
+                 <a href="deconnexion.php">Déconnexion</a>
+            </div>
+            
         </header>
         
         <div id="content">
-             
+           
         </div>
         
     <footer class="footer">

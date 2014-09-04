@@ -131,3 +131,23 @@ footer a:hover {
 .footer{
     margin-top: 0px;
 }
+
+/* Administrateur*/
+
+#deconexion{
+    position: absolute;
+    top: 70px;
+    left: 200px;
+}
+
+#deconexion a{
+    font-family: 'lobster';
+    text-decoration: none;
+    color: black;
+    margin-left: 250px;
+}
+
+#deconexion a:hover{
+    font-family: 'lobster';
+    color: #acc90b;
+}
